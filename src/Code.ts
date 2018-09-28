@@ -9,36 +9,79 @@ const G1_CAL:Object = CalendarApp.getCalendarById("aebkrthci3qfbh7p4lcis4vrg4@gr
 
 function doPost(e){
     try{
+        //チャットワークからメッセージをjsonにparseする
         let json = JSON.parse(e.postData.contents);
-
         let roomId = json.webhook_event.room_id;
+        let jsonBody = json.webhook_event.body;
+        let accountId = json.webhook_event.account_id;
+        let messagesId = json.webhook_event.message_id;
+
+        //メッセージを配列に
+        let bodyArray = jsonBody.split(',');
+
+        //カレンダーにイベントを登録する際に使用するパラメータ
+        let title  = bodyArray[0];
+        let startDay = bodyArray[1];
+        let endDay = bodyArray[2];
+        let location = bodyArray[3];
+
+        //カレンダーにイベントを登録するためのオブジェクを生成
+        let myCal = new Calender(MY_CAL);
+        //let NACal = new Calender(NS_CAL);
+        //let G1Cal = new Calender(G1_CAL);
         
+        myCal.createSchedule(title,startDay,endDay,location);
+
+        let chatwork = new ChatWork(roomId);
+        chatwork.sendMessege(accountId,messagesId,'正常に登録できました');
+
     }catch(ex){
         console.log('error');
     }
 }
 
+//カレンダークラス(googleカレンダーでできる機能をここに詰め込む)
+class Calender{
+    constructor(private calId:any){
+        this.calId = calId;
+    }
+    public createSchedule(title:string,startDay:string,endDay:string,location:string,){
+        this.calId.createEvent(
+            'title',
+            new Date(startDay),
+            new Date(endDay),
+            {
+                location:location,
+            }
+        );
+    }
+}
+//チャットワーククラス(チャットワークでできる機能をここに詰め込む)
 class ChatWork {
     static url:string = "https://api.chatwork.com/v2";
     constructor(private roomID:string){
         this.roomID = roomID;
     }
     public createUrl(){
-        let chatWorkUrl:string = "";   
+        let chatWorkUrl:string = "";  
+        let sendBody:string = ""; 
         chatWorkUrl = `${ChatWork.url}/rooms/${this.roomID}/messages`;
         return chatWorkUrl;
     }
-    public sendMessege(str:string):any{
-        let chatWorkUrl:string = "";
+    public sendMessege(accountid:string,messageid:string,str:string):any{
         let sendStr:any = "";  
-        chatWorkUrl = this.createUrl();  
-
+        let chatWorkUrl:string = this.createUrl();  
+        let sendBody:string = "";
         let options = {
             'method': 'post',
             'headers': {'X-ChatWorkToken' : API_TOKEN},
             'payload': {'body' : str}
           };
-        sendStr = UrlFetchApp.fetch(chatWorkUrl, options);
+
+          sendBody = `[rp aid=${accountid}; to=${this.roomID} - ${messageid} [info]:${str}[/info]`;
+          options.payload = {body: sendBody}
+        
+          sendStr = UrlFetchApp.fetch(chatWorkUrl, options);
         return sendStr.getContentText();
     }
 }
