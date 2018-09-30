@@ -49,10 +49,28 @@ class Calender {
         this.calId = calId;
     }
     public createSchedule(title: string, SDay: string, EDay: string, place: string) {
-        let startDay = new Date(SDay);
+        //開始日の再定義GMT -04:00になってしまっていた。
+        let startday = new Date(SDay);
+        let startYear = startday.getFullYear();
+        let startDate = startday.getDate();
+        let startMonth = startday.getMonth();
+        let startHour = startday.getHours() - 14;
+        let startMinute = startday.getMinutes()
+        let startSecond = startday.getSeconds();
+        let startDay = new Date(startYear,startMonth,startDate,startHour,startMinute,startSecond);
         console.log(startDay);
-        let endDay = new Date(EDay);
+
+        //終了日の再定義GMT -04:00になってしまっていた。
+        let endday = new Date(EDay);
+        let endYear = endday.getFullYear();
+        let endDate = endday.getDate();
+        let endMonth = endday.getMonth();
+        let endHour = endday.getHours() - 14;
+        let endMinute = endday.getMinutes()
+        let endSecond = endday.getSeconds();
+        let endDay = new Date(endYear,endMonth,endDate,endHour,endMinute,endSecond);
         console.log(endDay);
+
         let option = {
             location: place
         };
