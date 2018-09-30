@@ -54,7 +54,7 @@ class Calender {
         let startYear = startday.getFullYear();
         let startDate = startday.getDate();
         let startMonth = startday.getMonth();
-        let startHour = startday.getHours() - 14;
+        let startHour = startday.getHours() - 13;
         let startMinute = startday.getMinutes()
         let startSecond = startday.getSeconds();
         let startDay = new Date(startYear,startMonth,startDate,startHour,startMinute,startSecond);
@@ -65,7 +65,7 @@ class Calender {
         let endYear = endday.getFullYear();
         let endDate = endday.getDate();
         let endMonth = endday.getMonth();
-        let endHour = endday.getHours() - 14;
+        let endHour = endday.getHours() - 13;
         let endMinute = endday.getMinutes()
         let endSecond = endday.getSeconds();
         let endDay = new Date(endYear,endMonth,endDate,endHour,endMinute,endSecond);
