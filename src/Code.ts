@@ -5,7 +5,7 @@ const API_TOKEN: string = '1d5b3bba800c684b4853d1c747281e88';
 const MY_CAL: Object = CalendarApp.getCalendarById("koyamatsuyuki@gmail.com");
 const NS_CAL: Object = CalendarApp.getCalendarById("0e99rnvtc9voa7sam8qrnnh96g@group.calendar.google.com");
 const G1_CAL: Object = CalendarApp.getCalendarById("aebkrthci3qfbh7p4lcis4vrg4@group.calendar.google.com");
-
+const NL_CAL: Object = CalendarApp.getCalendarById("cblarpni8so0pcn51qopvv3ts0@group.calendar.google.com");
 
 function doPost(e) {
     try {
@@ -29,10 +29,15 @@ function doPost(e) {
 
             //カレンダーにイベントを登録するためのオブジェクを生成
             let myCal = new Calender(MY_CAL);
-            //let NACal = new Calender(NS_CAL);
-            //let G1Cal = new Calender(G1_CAL);
+            let NACal = new Calender(NS_CAL);
+            let G1Cal = new Calender(G1_CAL);
+            let NLCal = new Calender(NL_CAL);
 
             myCal.createSchedule(title, startDay, endDay, place);
+            NACal.createSchedule(title, startDay, endDay, place);
+            G1Cal.createSchedule(title, startDay, endDay, place);
+            NLCal.createSchedule(title, startDay, endDay, place);
+
 
             let chatwork = new ChatWork(roomId);
             chatwork.sendMessege(accountId, messagesId, '正常に登録できました');
