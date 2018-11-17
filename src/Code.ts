@@ -1,11 +1,11 @@
 //ChatWorkのAPIトークン
-const API_TOKEN: string = '1d5b3bba800c684b4853d1c747281e88';
+const API_TOKEN: string = '******************;
 
 //Googleカレンダーのパラメータ
-const MY_CAL: Object = CalendarApp.getCalendarById("koyamatsuyuki@gmail.com");
-const NS_CAL: Object = CalendarApp.getCalendarById("0e99rnvtc9voa7sam8qrnnh96g@group.calendar.google.com");
-const G1_CAL: Object = CalendarApp.getCalendarById("aebkrthci3qfbh7p4lcis4vrg4@group.calendar.google.com");
-const NL_CAL: Object = CalendarApp.getCalendarById("cblarpni8so0pcn51qopvv3ts0@group.calendar.google.com");
+const MY_CAL: Object = CalendarApp.getCalendarById("******************@gmail.com");
+const NS_CAL: Object = CalendarApp.getCalendarById("******************@group.calendar.google.com");
+const G1_CAL: Object = CalendarApp.getCalendarById("******************@group.calendar.google.com");
+const NL_CAL: Object = CalendarApp.getCalendarById("******************@group.calendar.google.com");
 
 function doPost(e) {
     try {
